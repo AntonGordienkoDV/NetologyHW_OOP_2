@@ -23,6 +23,14 @@ class Student:
                 mean_gr /= len(self.grades)
         return mean_gr
 
+    def __str__(self):
+        res = f'''Имя: {self.name}
+Фамилия: {self.surname}
+Средняя оценка за домашние задания: {self._mean_grade()}
+Курсы в процессе изучения: {', '.join(self.courses_in_progress)}
+Завершенные курсы: {', '.join(self.finished_courses)}'''
+        return res
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -75,7 +83,7 @@ def main():
     st1.rate_lecture(lc1, 'GIT', 9)
     st1.rate_lecture(lc1, 'GIT', 10)
     st1.rate_lecture(lc1, 'GIT', 5)
-    print(lc1)
+    print(st1)
     pass
 
 
