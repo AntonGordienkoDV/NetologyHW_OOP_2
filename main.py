@@ -33,6 +33,12 @@ class Student:
 Завершенные курсы: {', '.join(self.finished_courses)}'''
         return res
 
+    def __lt__(self, other):
+        if not isinstance(other, Student):
+            print(f'Not a Student')
+            return
+        return self._mean_grade() < other._mean_grade()
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -79,29 +85,20 @@ class Reviewer(Mentor):
 
 
 def main():
-    st1 = Student('Greg', 'Mouse', 'Male')
-    st1.courses_in_progress += ['GIT', 'SQL']
-    st1.finished_courses += ['Python']
-    lc1 = Lecturer('John', 'Daw')
-    lc1.courses_attached += ['GIT', 'Python']
-    rv1 = Reviewer('Jane', 'Dawson')
-    rv1.courses_attached += ['GIT', 'Python', 'SQL']
-    rv1.rate_hw(st1, 'GIT', 10)
-    rv1.rate_hw(st1, 'GIT', 9)
-    rv1.rate_hw(st1, 'GIT', 9)
-    rv1.rate_hw(st1, 'SQL', 8)
-    lc2 = Lecturer('Johan', 'Izralyevich')
-    lc2.courses_attached += ['GIT', 'SQL']
-    st1.rate_lecture(lc1, 'GIT', 9)
-    st1.rate_lecture(lc1, 'GIT', 10)
-    st1.rate_lecture(lc1, 'Python', 5)
-    st1.rate_lecture(lc2, 'GIT', 9)
-    st1.rate_lecture(lc2, 'SQL', 9)
-    st1.rate_lecture(lc2, 'SQL', 10)
-    print(lc1)
-    print(lc2)
-    print(lc1 < lc2)
-    print(lc1 > lc2)
+    st1 = Student('Anton', 'Gordienko', 'Male')
+    st2 = Student('Iola', 'Orfey', 'Female')
+    st1.courses_in_progress += ['Python']
+    st2.courses_in_progress += ['Python']
+    rv1 = Reviewer('John', 'Daw')
+    rv1.courses_attached += ['Python']
+    rv1.rate_hw(st1, 'Python', 10)
+    rv1.rate_hw(st1, 'Python', 5)
+    rv1.rate_hw(st2, 'Python', 9)
+    rv1.rate_hw(st2, 'Python', 8)
+    print(st1)
+    print(st2)
+    print(st1 > st2)
+    print(st1 < st2)
     pass
 
 
