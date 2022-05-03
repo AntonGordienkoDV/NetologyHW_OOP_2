@@ -54,11 +54,13 @@ class Lecturer(Mentor):
 
     def _mean_grade(self):
         mean_gr = 0
+        grade_counter = 0
         for _grades in self.grades.values():
-            mean_gr += sum(_grades) / len(_grades)
+            mean_gr += sum(_grades)
+            grade_counter += len(_grades)
         else:
             if mean_gr:
-                mean_gr /= len(self.grades)
+                mean_gr /= grade_counter
         return mean_gr
 
 
