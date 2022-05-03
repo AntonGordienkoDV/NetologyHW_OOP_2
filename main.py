@@ -16,17 +16,19 @@ class Student:
 
     def _mean_grade(self):
         mean_gr = 0
+        grade_counter = 0
         for _grades in self.grades.values():
-            mean_gr += sum(_grades) / len(_grades)
+            mean_gr += sum(_grades)
+            grade_counter += len(_grades)
         else:
             if mean_gr:
-                mean_gr /= len(self.grades)
+                mean_gr /= grade_counter
         return mean_gr
 
     def __str__(self):
         res = f'''Имя: {self.name}
 Фамилия: {self.surname}
-Средняя оценка за домашние задания: {self._mean_grade()}
+Средняя оценка за домашние задания: {self._mean_grade():.2f}
 Курсы в процессе изучения: {', '.join(self.courses_in_progress)}
 Завершенные курсы: {', '.join(self.finished_courses)}'''
         return res
@@ -48,7 +50,7 @@ class Lecturer(Mentor):
         self.grades = {}
 
     def __str__(self):
-        return super().__str__() + f'\nСредняя оценка за лекции: {self._mean_grade()}'
+        return super().__str__() + f'\nСредняя оценка за лекции: {self._mean_grade():.2f}'
 
     def _mean_grade(self):
         mean_gr = 0
@@ -75,11 +77,11 @@ def main():
     lc1 = Lecturer('John', 'Daw')
     lc1.courses_attached += ['GIT', 'Python']
     rv1 = Reviewer('Jane', 'Dawson')
-    rv1.courses_attached += ['GIT', 'Python']
+    rv1.courses_attached += ['GIT', 'Python', 'SQL']
     rv1.rate_hw(st1, 'GIT', 10)
-    rv1.rate_hw(st1, 'GIT', 8)
     rv1.rate_hw(st1, 'GIT', 9)
-    rv1.rate_hw(st1, 'SQL', 9)
+    rv1.rate_hw(st1, 'GIT', 9)
+    rv1.rate_hw(st1, 'SQL', 8)
     st1.rate_lecture(lc1, 'GIT', 9)
     st1.rate_lecture(lc1, 'GIT', 10)
     st1.rate_lecture(lc1, 'GIT', 5)
