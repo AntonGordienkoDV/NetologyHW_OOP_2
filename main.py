@@ -14,7 +14,7 @@ class Student:
         else:
             return 'Ошибка'
 
-    def mean_grade(self):
+    def _mean_grade(self):
         mean_gr = 0
         for _grades in self.grades.values():
             mean_gr += sum(_grades) / len(_grades)
@@ -29,6 +29,9 @@ class Mentor:
         self.name = name
         self.surname = surname
         self.courses_attached = []
+
+    def __str__(self):
+        return f'Имя: {self.name}\nФамилия: {self.surname}'
 
 
 class Lecturer(Mentor):
@@ -66,7 +69,7 @@ def main():
     rv1.rate_hw(st1, 'GIT', 8)
     rv1.rate_hw(st1, 'GIT', 9)
     rv1.rate_hw(st1, 'SQL', 9)
-    st1.mean_grade()
+    print(rv1)
     pass
 
 
