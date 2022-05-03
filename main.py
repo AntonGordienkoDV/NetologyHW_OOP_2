@@ -20,7 +20,6 @@ class Student:
             mean_gr += sum(_grades) / len(_grades)
         else:
             mean_gr /= len(self.grades)
-        print(mean_gr)
         return mean_gr
 
 
@@ -39,13 +38,16 @@ class Lecturer(Mentor):
         super().__init__(name, surname)
         self.grades = {}
 
+    def __str__(self):
+        return super().__str__() + f'\nСредняя оценка за лекции: {self._mean_grade()}'
+
     def _mean_grade(self):
         mean_gr = 0
         for _grades in self.grades.values():
             mean_gr += sum(_grades) / len(_grades)
         else:
-            mean_gr /= len(self.grades)
-        print(mean_gr)
+            if mean_gr:
+                mean_gr /= len(self.grades)
         return mean_gr
 
 
@@ -69,7 +71,10 @@ def main():
     rv1.rate_hw(st1, 'GIT', 8)
     rv1.rate_hw(st1, 'GIT', 9)
     rv1.rate_hw(st1, 'SQL', 9)
-    print(rv1)
+    st1.rate_lecture(lc1, 'GIT', 9)
+    st1.rate_lecture(lc1, 'GIT', 10)
+    st1.rate_lecture(lc1, 'GIT', 5)
+    print(lc1)
     pass
 
 
