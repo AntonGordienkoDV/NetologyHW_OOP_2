@@ -14,6 +14,9 @@ class Student:
         else:
             return 'Ошибка'
 
+    def course_grades(self, course):
+        return sum(self.grades.get(course, [0])), len(self.grades.get(course, []))
+
     def _mean_grade(self):
         mean_gr = 0
         grade_counter = 0
@@ -69,6 +72,9 @@ class Lecturer(Mentor):
                 mean_gr /= grade_counter
         return mean_gr
 
+    def course_grades(self, course):
+        return sum(self.grades.get(course, [0])), len(self.grades.get(course, []))
+
     def __lt__(self, other):
         if not isinstance(other, Lecturer):
             print(f'Not a Lecturer')
@@ -82,6 +88,28 @@ class Reviewer(Mentor):
             student.grades[course] = student.grades.setdefault(course, []) + [*grade]
         else:
             return 'Ошибка'
+
+
+def students_mean_grade(course, persons):
+    gr_sum = 0
+    gr_count = 0
+    for person in persons:
+        if isinstance(person, Student):
+            gr_sum, gr_count = map(lambda x, y: x+y, person.course_grades(course), (gr_sum, gr_count))
+    if gr_sum:
+        gr_sum /= gr_count
+    return gr_sum
+
+
+def lecturers_mean_grade(course, persons):
+    gr_sum = 0
+    gr_count = 0
+    for person in persons:
+        if isinstance(person, Lecturer):
+            gr_sum, gr_count = map(lambda x, y: x+y, person.course_grades(course), (gr_sum, gr_count))
+    if gr_sum:
+        gr_sum /= gr_count
+    return gr_sum
 
 
 def main():
@@ -119,6 +147,12 @@ def main():
     print(st1, st2, rv1, rv2, lc1, lc2, sep='\n\n')
     # Check comparison function
     print(st1 < st2, st1 > st2, lc1 < lc2, lc1 > lc2, sep='\n')
+    # Special mean functions
+    print()
+    print(f"Python students mean grade: {students_mean_grade('Python', [st1, st2]):.2f}")
+    print(f"SQL students mean grade: {students_mean_grade('SQL', [st1, st2]):.2f}")
+    print(f"Python lecturers mean grade: {lecturers_mean_grade('Python', [lc1, lc2]):.2f}")
+    print(f"GIT lecturers mean grade: {lecturers_mean_grade('GIT', [lc1, lc2]):.2f}")
     pass
 
 
