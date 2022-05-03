@@ -19,7 +19,8 @@ class Student:
         for _grades in self.grades.values():
             mean_gr += sum(_grades) / len(_grades)
         else:
-            mean_gr /= len(self.grades)
+            if mean_gr:
+                mean_gr /= len(self.grades)
         return mean_gr
 
 
