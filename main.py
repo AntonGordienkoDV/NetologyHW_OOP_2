@@ -63,6 +63,12 @@ class Lecturer(Mentor):
                 mean_gr /= grade_counter
         return mean_gr
 
+    def __lt__(self, other):
+        if not isinstance(other, Lecturer):
+            print(f'Not a Lecturer')
+            return
+        return self._mean_grade() < other._mean_grade()
+
 
 class Reviewer(Mentor):
     def rate_hw(self, student, course, grade):
@@ -84,10 +90,18 @@ def main():
     rv1.rate_hw(st1, 'GIT', 9)
     rv1.rate_hw(st1, 'GIT', 9)
     rv1.rate_hw(st1, 'SQL', 8)
+    lc2 = Lecturer('Johan', 'Izralyevich')
+    lc2.courses_attached += ['GIT', 'SQL']
     st1.rate_lecture(lc1, 'GIT', 9)
     st1.rate_lecture(lc1, 'GIT', 10)
-    st1.rate_lecture(lc1, 'GIT', 5)
-    print(st1)
+    st1.rate_lecture(lc1, 'Python', 5)
+    st1.rate_lecture(lc2, 'GIT', 9)
+    st1.rate_lecture(lc2, 'SQL', 9)
+    st1.rate_lecture(lc2, 'SQL', 10)
+    print(lc1)
+    print(lc2)
+    print(lc1 < lc2)
+    print(lc1 > lc2)
     pass
 
 
