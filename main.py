@@ -85,20 +85,40 @@ class Reviewer(Mentor):
 
 
 def main():
+    # Creating Student Objects
     st1 = Student('Anton', 'Gordienko', 'Male')
     st2 = Student('Iola', 'Orfey', 'Female')
-    st1.courses_in_progress += ['Python']
-    st2.courses_in_progress += ['Python']
+    st1.courses_in_progress += ['Python', 'SQL']
+    st1.finished_courses += ['GIT']
+    st2.courses_in_progress += ['Python', 'GIT']
+    # Creating Reviewer Objects
     rv1 = Reviewer('John', 'Daw')
     rv1.courses_attached += ['Python']
-    rv1.rate_hw(st1, 'Python', 10)
+    rv2 = Reviewer('Jane', 'Daw')
+    rv2.courses_attached += ['GIT', 'SQL']
+    # Creating Lecturer Objects
+    lc1 = Lecturer('Guido', 'van Rossum')
+    lc1.courses_attached += ['Python', 'SQL']
+    lc2 = Lecturer('Linus', 'Torvalds')
+    lc2.courses_attached += ['GIT']
+    # Rate Lecturers
+    st1.rate_lecture(lc1, 'Python', 10, 10, 8)
+    st1.rate_lecture(lc1, 'SQL', 5, 9)
+    st1.rate_lecture(lc2, 'GIT', 10, 9, 8, 7)
+    st2.rate_lecture(lc1, 'Python', 10, 10, 8)
+    st2.rate_lecture(lc2, 'GIT', 10, 8, 8, 9)
+    # Rate Students
+    rv1.rate_hw(st1, 'Python', 9, 8, 10)
     rv1.rate_hw(st1, 'Python', 5)
-    rv1.rate_hw(st2, 'Python', 9)
-    rv1.rate_hw(st2, 'Python', 8)
-    print(st1)
-    # print(st2)
-    # print(st1 > st2)
-    # print(st1 < st2)
+    rv1.rate_hw(st2, 'Python', 10, 8, 10)
+    rv2.rate_hw(st2, 'GIT', 7, 8, 8)
+    rv2.rate_hw(st1, 'SQL', 9)
+    rv2.rate_hw(st1, 'GIT', 10, 7, 5)  # Эта команда не сработает, так как GIT у первого студента в списке завершенных
+    st1.grades['GIT'] = [10, 7, 5]  # Добавим эти оценки вручную
+    # Check print function
+    print(st1, st2, rv1, rv2, lc1, lc2, sep='\n\n')
+    # Check comparison function
+    print(st1 < st2, st1 > st2, lc1 < lc2, lc1 > lc2, sep='\n')
     pass
 
 
