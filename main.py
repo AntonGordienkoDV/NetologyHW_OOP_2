@@ -7,10 +7,10 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
 
-    def rate_lecture(self, lecturer, course, grade):
+    def rate_lecture(self, lecturer, course, *grade):
         if isinstance(lecturer, Lecturer) and course in (self.finished_courses + self.courses_in_progress) \
                 and course in lecturer.courses_attached:
-            lecturer.grades[course] = lecturer.grades.setdefault(course, []) + [grade]
+            lecturer.grades[course] = lecturer.grades.setdefault(course, []) + [*grade]
         else:
             return 'Ошибка'
 
@@ -77,9 +77,9 @@ class Lecturer(Mentor):
 
 
 class Reviewer(Mentor):
-    def rate_hw(self, student, course, grade):
+    def rate_hw(self, student, course, *grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
-            student.grades[course] = student.grades.setdefault(course, []) + [grade]
+            student.grades[course] = student.grades.setdefault(course, []) + [*grade]
         else:
             return 'Ошибка'
 
@@ -96,9 +96,9 @@ def main():
     rv1.rate_hw(st2, 'Python', 9)
     rv1.rate_hw(st2, 'Python', 8)
     print(st1)
-    print(st2)
-    print(st1 > st2)
-    print(st1 < st2)
+    # print(st2)
+    # print(st1 > st2)
+    # print(st1 < st2)
     pass
 
 
